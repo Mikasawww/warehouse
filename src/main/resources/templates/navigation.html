@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <link rel="stylesheet" href="/css/forum.css"/>
+</head>
+<body>
+<div th:fragment="nav">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <ul class="nav navbar-nav navbar-right">
+          <li th:if="${session.user != null}">
+            <a data-target="#myModal" data-toggle="modal" style="cursor: pointer">新建仓库</a>
+            <div class="modal fade"  id="myModal" aria-labelledby="myModallabel" aria-hidden="true" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+
+                  <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h5 class="modal-title" id="myModallabel">新建仓库</h5>
+                  </div>
+                  <form action="/createWarehouse" method="post" id="formData" class="form-horizontal">
+                    <div class="modal-body">
+
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">创建者用户名：</label>
+                        <div class="col-lg-9">
+                          <input type="text" value="" name="username" class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">创建者密码：</label>
+                        <div class="col-lg-9">
+                          <input type="password" value="" name="password" class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-lg-3">仓库的最大容量：</label>
+                        <div class="col-lg-9">
+                          <input type="text" value="" name="capacity" class="form-control"></br>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-default" type="button" data-dismiss="modal">取消</button>
+                      <button class="btn btn-success" type="submit" >提交</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li th:if="${session.user != null}">
+                <a href="/logout">退出登录</a>
+          </li>
+          <li th:if="${session.user != null}">
+            <a th:text="${session.user.getName()}"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+
+</body>

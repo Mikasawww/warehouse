@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/js/warehouse.js"></script>
+
+</head>
+<body>
+
+  <div class="login-container">
+    <form action="/login" method="post" class="login-form">
+        <h2>欢迎登录仓储管理系统</h2>
+        <input type="text" name="username" th:value="${username}" placeholder="用户名">
+        <input type="password" name="password" th:value="${password}" placeholder="密码">
+        <button type="submit">登录</button>
+        <button type="button" onclick="window.location.href='/toRegister'">注册</button>
+        <div th:if="${error != null}">
+            <strong th:text="${error}"></strong>
+        </div>
+    </form>
+  </div>
+</body>
+</html>

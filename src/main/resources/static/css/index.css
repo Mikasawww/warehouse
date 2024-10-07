@@ -1,0 +1,43 @@
+.glyphicon-play-circle{
+    color: green;
+    font-size: 23px;
+
+}
+
+.glyphicon-remove-circle{
+    color: red;
+    font-size: 23px;
+}
+.nav-pills{
+    margin-top: 20px;
+}
+.glyphicon-option-horizontal{
+    font-size: 20px;
+    cursor: pointer;
+}
+.dropdown-menu > li {
+    cursor: pointer;
+}
+
+.table{
+    margin:0 auto;
+}
+
+td{
+    vertical-align: middle!important;
+}
+
+.table-head{
+    font-size: large;
+}
+
+.table-body{
+    font-size: medium;
+}
+
+.progress{
+    margin-bottom: 0!important;
+    width: 200px;!important;
+    margin-right: -100px;
+}
+

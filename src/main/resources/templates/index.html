@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>仓储管理系统</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/js/warehouse.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- 出货模态框 -->
+    <div class="modal fade"  id="myModal2" aria-labelledby="myModallabel2" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h5 class="modal-title" id="myModallabel2">出货</h5>
+            </div>
+            <form action="/ship" method="post" class="form-horizontal">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">货物名称：</label>
+                        <div class="col-lg-9">
+                            <input type="text" value="" name="name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">出货数量：</label>
+                        <div class="col-lg-9">
+                            <input type="text" value="" name="quantity" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3">仓库编号：</label>
+                        <div class="col-lg-9">
+                            <input id="warehouseIdOut" type="text" value="" name="warehouse" class="form-control"></br>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal">取消</button>
+                    <button class="btn btn-success" type="submit" >提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    <!-- 进货模态框 -->
+    <div class="modal fade"  id="myModal3" aria-labelledby="myModallabel3" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h5 class="modal-title" id="myModallabel3">进货</h5>
+                </div>
+                <form action="/stock" method="post" class="form-horizontal" enctype="multipart/form-data">
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label class="control-label col-lg-3">货物名称：</label>
+                            <div class="col-lg-9">
+                                <input type="text" value="" name="name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-3">进货数量：</label>
+                            <div class="col-lg-9">
+                                <input type="text" value="" name="quantity" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-3">货物单价：</label>
+                            <div class="col-lg-9">
+                                <input type="text" value="" name="price" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-3">货物图片：</label>
+                            <div class="col-lg-9">
+                                <input type="file" value="" name="img" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-3">仓库编号：</label>
+                            <div class="col-lg-9">
+                                <input id="warehouseIdIn" type="text" value="" name="warehouse" class="form-control"></br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">取消</button>
+                        <button class="btn btn-success" type="submit" >提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            <ul class="nav nav-pills nav-stacked" role="tablist">
+                <li role="presentation" th:classappend="${section == 'warehouseManagement'} ? 'active' : ''">
+                    <a href="/index">仓库管理</a>
+                </li>
+                <li role="presentation" th:classappend="${section == 'materialManagement'} ? 'active' : ''">
+                    <a href="/materialManage">货物管理</a>
+                </li>
+                <li role="presentation" th:classappend="${section == 'billManagement'} ? 'active' : ''">
+                    <a href="/billManage">清单管理</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
+            <div th:insert="~{navigation :: nav}"></div>
+            <div class="panel panel-default">
+                <div class="panel-heading">仓库信息</div>
+
+                <div class="panel-body">
+                    <p>用户可以进行仓库的创建和删除、进出货、成为仓库的管理员以及查看仓库详细信息</p>
+                </div>
+
+
+                <table class="table">
+
+                    <tr class="table-head">
+                        <th>仓库编号</th>
+                        <th>创建人</th>
+                        <th>使用情况</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+
+                    <tr class="table-body" th:each="warehouse : ${warehouses}">
+
+
+                        <td th:text="${warehouse.id}"></td>
+                        <td th:text="${warehouse.creatorName}"></td>
+                        <td>
+                            <div th:if = "${warehouse.rate < 0.4}" class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" th:aria-valuenow="${warehouse.occupy}" aria-valuemin="0" th:aria-valuemax="${warehouse.capacity}" th:style="'min-width: 3em' + ';' + 'width:' + ${warehouse.rate * 100} + '%'">
+                                    <span class="sr-only">40% Complete (success)</span>
+                                    <span th:text="${warehouse.occupy} + '/' + ${warehouse.capacity}"></span>
+                                </div>
+                            </div>
+
+                            <div th:if = "${warehouse.rate >= 0.4 && warehouse.rate < 0.8}" class="progress">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" th:aria-valuenow="${warehouse.occupy}" aria-valuemin="0" th:aria-valuemax="${warehouse.capacity}" th:style="'min-width: 3em' + ';' + 'width:' + ${warehouse.rate * 100} + '%'">
+                                    <span class="sr-only">60% Complete (warning)</span>
+                                    <span th:text="${warehouse.occupy} + '/' + ${warehouse.capacity}"></span>
+                                </div>
+                            </div>
+                            <div th:if = "${warehouse.rate >= 0.8}" class="progress">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" th:aria-valuenow="${warehouse.occupy}" aria-valuemin="0" th:aria-valuemax="${warehouse.capacity}" th:style="'min-width: 3em' + ';' + 'width:' + ${warehouse.rate * 100} + '%'">
+                                    <span class="sr-only">80% Complete (danger)</span>
+                                    <span th:text="${warehouse.occupy} + '/' + ${warehouse.capacity}"></span>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td>
+                            <span th:if="${warehouse.status == 1}" class="glyphicon glyphicon-play-circle " aria-hidden="true">
+
+                            </span>
+                            <span th:if="${warehouse.status == 1}" class="warehouse-status">正常</span>
+
+                            <span th:if="${warehouse.status != 1}" class="glyphicon glyphicon-remove-circle " aria-hidden="true">
+
+                            </span>
+                            <span th:if="${warehouse.status != 1}" class="warehouse-status">异常</span>
+
+                        </td>
+
+                        <td>
+                            <div class="btn-group">
+                                <div class="glyphicon glyphicon-option-horizontal dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </div>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a th:onclick="'javascript:confirm('+${warehouse.id}+','+${session.user.id}+');'">删除仓库</a>
+                                        <a th:onclick="'javascript:setWarehouseIdOut('+${warehouse.id}+');'" data-toggle="modal" data-target="#myModal2">出货</a>
+                                        <a th:onclick="'javascript:setWarehouseIdIn('+${warehouse.id}+');'" data-toggle="modal" data-target="#myModal3">进货</a>
+                                        <a th:href="@{'/manage/' + ${warehouse.id}}">接管</a>
+                                        <a th:href="@{'/warehouse/' + ${warehouse.id}}">详细信息</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div th:if = "${error != null}" class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong th:text="${error}"></strong>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>
